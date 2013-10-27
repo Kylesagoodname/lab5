@@ -3,6 +3,69 @@
 */
 
 
+/*function render (employee, template, container) {
+    var instance;
+    container.empty();
+    $.each(employee, function(){
+        instance = template.clone();
+        instance.find(.'first').html(this.first);
+        instance.find(.'last').html(this.last);
+        instance.find('.title').html(this.title);
+        instance.find(.'dept').html(this.dept);
+        instance.find('.pic').attr({
+            src: this.pic,
+            alt: "Picture of " + this.dept
+        });
+
+        instance.removeClass('template');
+        container.append(instance);
+
+    });
+
+}*/
+
+function render(employee, template, container) {
+    var instance;
+    container.empty();
+    $.each(employee, function(){
+        instance = template.clone();
+        instance.find('.first').html(this.first);
+        instance.find('.last').html(this.last);
+        instance.find('.title').html(this.title);
+        instance.find('.dept').html(this.dept);
+        instance.find('.pic').attr({
+            src: this.pic,
+            alt: 'Picture of ' + this.first + this.last
+        });
+
+
+        instance.removeClass('template');
+        container.append(instance);
+
+    });
+}
+
+
+    
+
+$(function() {
+
+    $('.sort-ui .btn').click(function(){
+        var sortBtn = $(this);
+        var foo = sortBtn.attr('data-sortby');
+        alert(foo);
+        sortObjArray(Employees.entries, 'foo');
+
+    
+    
+    });
+    
+    render(Employees.entries, $('.template'), $('.address-book'));
+});
+
+
+
+
 /* sortObjArray()
     sorts an array of objects by a given property name
     the property values are compared using standard 
@@ -14,6 +77,8 @@
 
     returns undefined (array is sorted in place)
 */
+
+
 function sortObjArray(objArray, propName) {
     if (!objArray.sort)
         throw new Error('The objArray parameter does not seem to be an array (no sort method)');
