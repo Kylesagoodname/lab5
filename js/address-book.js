@@ -3,30 +3,10 @@
 */
 
 
-/*function render (employee, template, container) {
-    var instance;
-    container.empty();
-    $.each(employee, function(){
-        instance = template.clone();
-        instance.find(.'first').html(this.first);
-        instance.find(.'last').html(this.last);
-        instance.find('.title').html(this.title);
-        instance.find(.'dept').html(this.dept);
-        instance.find('.pic').attr({
-            src: this.pic,
-            alt: "Picture of " + this.dept
-        });
-
-        instance.removeClass('template');
-        container.append(instance);
-
-    });
-
-}*/
 //Clears out the previous address list and replaces it with the current list
 function render(employee, template, container) {
     var instance;
-    
+    container.hide();
     container.empty();
     $.each(employee, function(){
         instance = template.clone();
@@ -36,21 +16,24 @@ function render(employee, template, container) {
         instance.find('.dept').html(this.dept);
         instance.find('.pic').attr({
             src: this.pic,
-            alt: 'Picture of ' + this.first + this.last
+            alt: 'Picture of ' + this.first + ' ' + this.last
         });
     
 
         instance.removeClass('template');
 
         container.append(instance);
+        container.fadeIn(1000);
         
-
     });
+    
+    
 }
 
 
     
-
+//sorts the address book of employees and sorts them based on 
+//which button the user clicks
 $(function() {
 sortObjArray(Employees.entries, 'last');
 render(Employees.entries, $('.template'), $('.address-book'));
