@@ -23,9 +23,10 @@
     });
 
 }*/
-
+//Clears out the previous address list and replaces it with the current list
 function render(employee, template, container) {
     var instance;
+    
     container.empty();
     $.each(employee, function(){
         instance = template.clone();
@@ -37,10 +38,12 @@ function render(employee, template, container) {
             src: this.pic,
             alt: 'Picture of ' + this.first + this.last
         });
-
+    
 
         instance.removeClass('template');
+
         container.append(instance);
+        
 
     });
 }
@@ -49,18 +52,16 @@ function render(employee, template, container) {
     
 
 $(function() {
-
+sortObjArray(Employees.entries, 'last');
+render(Employees.entries, $('.template'), $('.address-book'));
     $('.sort-ui .btn').click(function(){
         var sortBtn = $(this);
-        var foo = sortBtn.attr('data-sortby');
-        alert(foo);
-        sortObjArray(Employees.entries, 'foo');
-
-    
-    
-    });
-    
-    render(Employees.entries, $('.template'), $('.address-book'));
+        var category = sortBtn.attr('data-sortby');
+        sortObjArray(Employees.entries, category);
+        sortBtn.siblings().removeClass('active');
+        sortBtn.addClass('active');
+        render(Employees.entries, $('.template'), $('.address-book'));
+    }); 
 });
 
 
